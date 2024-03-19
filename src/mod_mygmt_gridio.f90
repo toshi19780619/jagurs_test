@@ -48,7 +48,7 @@ contains
 #ifdef NFSUPPORT
       integer(kind=4), intent(in) :: formatid
       real(kind=8), allocatable, dimension(:) :: tmp
-#ifndef __NEC__
+#if !defined(__NEC__) && !defined(__GFORTRAN__)
       real(kind=4), parameter :: NaN = transfer(Z'FFFFFFFF', 0.e0)
 #else
       real(kind=4), parameter :: NaN = Z'FFFFFFFF'
@@ -151,8 +151,8 @@ contains
          z_dims(1) = x_dim
          z_dims(2) = y_dim
 
-         stat = nf_def_var(ncid, 'x', NF_DOUBLE, 1, x_dim, x_range_id )
-         stat = nf_def_var(ncid, 'y', NF_DOUBLE, 1, y_dim, y_range_id )
+         stat = nf_def_var(ncid, 'x', NF_DOUBLE, 1, (/x_dim/), x_range_id )
+         stat = nf_def_var(ncid, 'y', NF_DOUBLE, 1, (/y_dim/), y_range_id )
          stat = nf_def_var(ncid, 'z', NF_REAL, 2, z_dims, z_id )
 
          ! assign attributes

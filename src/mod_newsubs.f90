@@ -402,9 +402,9 @@ contains
    subroutine maxgrd_write_gmt(hzmax,nlon,nlat,mlon0,mlat0,dxdy,fname, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                               flag_missing_value)
+                               flag_missing_value,dg)
 #else
-                               flag_missing_value,nxorg,nyorg)
+                               flag_missing_value,dg,nxorg,nyorg)
 #endif
 #else
 #ifndef PIXELOUT
@@ -420,9 +420,9 @@ contains
    subroutine maxgrd_write_gmt(hzmax,nlon,nlat,mlon0,mlat0,dxdy,dirname,fname, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                               flag_missing_value)
+                               flag_missing_value,dg)
 #else
-                               flag_missing_value,nxorg,nyorg)
+                               flag_missing_value,dg,nxorg,nyorg)
 #endif
 #else
 #ifndef PIXELOUT
@@ -449,8 +449,8 @@ contains
       integer(kind=4) :: imax, jmax, imin, jmin
 #endif
       real(kind=8) :: lat_north, lat_south, lon_east, lon_west, dx, dy
-#if defined(MPI) && defined(ONEFILE)
       type(data_grids), target, intent(inout) :: dg
+#if defined(MPI) && defined(ONEFILE)
       integer(kind=4), intent(in) :: myrank
       real(kind=REAL_BYTE), allocatable, dimension(:,:) :: hzmax_all
 #endif
@@ -832,9 +832,9 @@ contains
 #ifndef DIROUT
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,fname)
+   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,fname,dg)
 #else
-   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,fname,nxorg,nyorg)
+   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,fname,dg,nxorg,nyorg)
 #endif
 #else
 #ifndef PIXELOUT
@@ -846,9 +846,9 @@ contains
 #else
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,dirname,fname)
+   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,dirname,fname,dg)
 #else
-   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,dirname,fname,nxorg,nyorg)
+   subroutine maxgrd_v_write_gmt(vmax,nlon,nlat,mlon0,mlat0,dxdy,dirname,fname,dg,nxorg,nyorg)
 #endif
 #else
 #ifndef PIXELOUT
@@ -871,8 +871,8 @@ contains
       integer(kind=4) :: imax, jmax, imin, jmin
 #endif
       real(kind=8) :: lat_north, lat_south, lon_east, lon_west, dx, dy
-#if defined(MPI) && defined(ONEFILE)
       type(data_grids), target, intent(inout) :: dg
+#if defined(MPI) && defined(ONEFILE)
       integer(kind=4), intent(in) :: myrank
       real(kind=REAL_BYTE), allocatable, dimension(:,:) :: vmax_all
 #endif
@@ -1025,14 +1025,14 @@ contains
 #ifndef MPI
    subroutine dump_gmt_nl(wfld,dfld,tfld,nlon,nlat,wod, &
 #ifndef PIXELOUT
-                          mlat0,mlon0,dxdy,t,istep,base,mode,linear_flag)
+                          mlat0,mlon0,dxdy,t,istep,base,mode,dg,linear_flag)
 #else
-                          mlat0,mlon0,dxdy,t,istep,base,mode,nxorg,nyorg,linear_flag)
+                          mlat0,mlon0,dxdy,t,istep,base,mode,dg,nxorg,nyorg,linear_flag)
 #endif
 #else
    subroutine dump_gmt_nl(wfld,dfld,tfld,nlon,nlat,wod, &
 #ifndef ONEFILE
-                          mlat0,mlon0,dxdy,t,istep,myrank,base,mode,bflag,linear_flag)
+                          mlat0,mlon0,dxdy,t,istep,myrank,base,mode,bflag,dg,linear_flag)
 #else
 #ifndef PIXELOUT
                           mlat0,mlon0,dxdy,t,istep,myrank,base,mode,bflag,dg,linear_flag)
@@ -1091,8 +1091,8 @@ contains
       real(kind=REAL_BYTE), parameter :: td_min = 0.01d0 ! 1 cm
 ! ==============================================================================
       real(kind=REAL_BYTE) :: tx, ty, speed
-#if defined(MPI) && defined(ONEFILE)
       type(data_grids), target, intent(inout) :: dg
+#if defined(MPI) && defined(ONEFILE)
       real(kind=REAL_BYTE), allocatable, dimension(:,:) :: tp_all
 #endif
 #ifdef PIXELOUT

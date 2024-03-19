@@ -2066,9 +2066,9 @@ program JAGURS
                call maxgrd_write_gmt(dgrid(ig)%zz,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.false.)
+                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.false.,dgrid(ig))
 #else
-                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.false., &
+                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.false.,dgrid(ig), &
                   dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -2093,9 +2093,9 @@ program JAGURS
                call maxgrd_write_gmt(dgrid(ig)%zz,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.false.)
+                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.false.,dgrid(ig))
 #else
-                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.false., &
+                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.false.,dgrid(ig), &
                   dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -2240,14 +2240,14 @@ program JAGURS
 #ifndef MPI
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef PIXELOUT
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,VEL,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,VEL,dgrid(ig),linear_flag)
 #else
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,VEL,nxorg,nyorg,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,VEL,dgrid(ig),nxorg,nyorg,linear_flag)
 #endif
 #else
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef ONEFILE
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,VEL,has_boundary,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,VEL,has_boundary,dgrid(ig),linear_flag)
 #else
 #ifndef PIXELOUT
                                 mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,VEL,has_boundary,dgrid(ig),linear_flag)
@@ -2261,14 +2261,14 @@ program JAGURS
 #ifndef MPI
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef PIXELOUT
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,HGT,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,HGT,dgrid(ig),linear_flag)
 #else
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,HGT,nxorg,nyorg,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,base,HGT,dgrid(ig),nxorg,nyorg,linear_flag)
 #endif
 #else
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef ONEFILE
-                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,HGT,has_boundary,linear_flag)
+                                mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,HGT,has_boundary,dgrid(ig),linear_flag)
 #else
 #ifndef PIXELOUT
                                 mlat0,mlon0,dxdy,REAL_FUNC(0),0,myrank,base,HGT,has_boundary,dgrid(ig),linear_flag)
@@ -2401,14 +2401,14 @@ program JAGURS
 #ifndef MPI
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef PIXELOUT
-                                mlat0,mlon0,dxdy,t,istep,base,VEL,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,base,VEL,dgrid(ig),linear_flag)
 #else
-                                mlat0,mlon0,dxdy,t,istep,base,VEL,nxorg,nyorg,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,base,VEL,dgrid(ig),nxorg,nyorg,linear_flag)
 #endif
 #else
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef ONEFILE
-                                mlat0,mlon0,dxdy,t,istep,myrank,base,VEL,has_boundary,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,myrank,base,VEL,has_boundary,dgrid(ig),linear_flag)
 #else
 #ifndef PIXELOUT
                                 mlat0,mlon0,dxdy,t,istep,myrank,base,VEL,has_boundary,dgrid(ig),linear_flag)
@@ -2583,14 +2583,14 @@ program JAGURS
 #ifndef MPI
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef PIXELOUT
-                                mlat0,mlon0,dxdy,t,istep,base,HGT,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,base,HGT,dgrid(ig),linear_flag)
 #else
-                                mlat0,mlon0,dxdy,t,istep,base,HGT,nxorg,nyorg,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,base,HGT,dgrid(ig),nxorg,nyorg,linear_flag)
 #endif
 #else
                call dump_gmt_nl(wave_field,depth_field,ts_field,niz,njz,wod_flags, &
 #ifndef ONEFILE
-                                mlat0,mlon0,dxdy,t,istep,myrank,base,HGT,has_boundary,linear_flag)
+                                mlat0,mlon0,dxdy,t,istep,myrank,base,HGT,has_boundary,dgrid(ig),linear_flag)
 #else
 #ifndef PIXELOUT
                                 mlat0,mlon0,dxdy,t,istep,myrank,base,HGT,has_boundary,dgrid(ig),linear_flag)
@@ -2775,9 +2775,9 @@ program JAGURS
 !                              dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str)
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.)
+                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.,dgrid(ig))
 #else
-                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true., &
+                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.,dgrid(ig), &
                                dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -2799,9 +2799,9 @@ program JAGURS
 !                              dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str)
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.)
+                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.,dgrid(ig))
 #else
-                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true., &
+                               dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.,dgrid(ig), &
                                dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -2926,9 +2926,9 @@ program JAGURS
             call maxgrd_write_gmt(dgrid(ig)%wave_field%arrival_time,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.)
+                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.,dgrid(ig))
 #else
-                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true., &
+                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,.true.,dgrid(ig), &
                                   dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -2951,9 +2951,9 @@ program JAGURS
             call maxgrd_write_gmt(dgrid(ig)%wave_field%arrival_time,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.)
+                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.,dgrid(ig))
 #else
-                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true., &
+                                  dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,.true.,dgrid(ig), &
                                   dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -3005,9 +3005,9 @@ program JAGURS
          call maxgrd_v_write_gmt(dgrid(ig)%vmax,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str)
+                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,dgrid(ig))
 #else
-                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str, &
+                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,str,dgrid(ig), &
                                  dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else
@@ -3026,9 +3026,9 @@ program JAGURS
          call maxgrd_v_write_gmt(dgrid(ig)%vmax,dgrid(ig)%my%nx,dgrid(ig)%my%ny, &
 #if !defined(MPI) || !defined(ONEFILE)
 #ifndef PIXELOUT
-                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str)
+                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,dgrid(ig))
 #else
-                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str, &
+                                 dgrid(ig)%my%mlon0,dgrid(ig)%my%mlat0,dgrid(ig)%my%dh,dirname,str,dgrid(ig), &
                                  dgrid(ig)%my%nxorg,dgrid(ig)%my%nyorg)
 #endif
 #else

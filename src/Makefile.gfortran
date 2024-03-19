@@ -1,18 +1,18 @@
 # FC: Specify Fortran90 compiler command.
-FC=mpif90
+FC=gfortran
 
 # Added for displacement.
 # PRJ4_DIR: Specify PROJ.4 install directory.
 # CC&CFLAGS: Specify C compiler command and flags.
-PROJ4_DIR=$(HOME)/local
+PROJ4_DIR=$(HOME)/JAGURS/local
 CC=gcc
 CFLAGS=-g -I$(PROJ4_DIR)/include
 
 # BASE: Specify basic compiler options.
-BASE=-cpp -fconvert=big-endian
+BASE=-cpp -fconvert=big-endian -fallow-invalid-boz
 
 # FFTW3_INCLUDE_DIR: Specify FFTW3 include directory.
-FFTW3_INCLUDE_DIR=$(HOME)/local/include
+FFTW3_INCLUDE_DIR=$(HOME)/JAGURS/local/include
 
 # FFTW3_LIB: Specify linker options to link FFTW3.
 FFTW3_LIB=-lfftw3
@@ -21,10 +21,10 @@ FFTW3_LIB=-lfftw3
 OPT=-O2 -fopenmp -I$(FFTW3_INCLUDE_DIR)
 
 # NETCDF: Specify the path to NetCDF library.
-NETCDF=$(HOME)/local
+NETCDF=/usr
 
 # LIBS: Specify linker options.
-LIBS=-L$(NETCDF)/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5 -lsz -L$(PROJ4_DIR)/lib -lproj $(FFTW3_LIB) -lm
+LIBS=-L$(NETCDF)/lib -lnetcdff -lnetcdf -lsz -L$(PROJ4_DIR)/lib -lproj $(FFTW3_LIB) -lm
 
 # EXEC: Specify the name of executable.
 EXEC=jagurs
@@ -40,7 +40,7 @@ PREC=REAL_DBLE
 
 # MPI=ON: MPI version is made.
 # Else, serial version is made.
-MPI=ON
+#MPI=ON
 
 # USE_ALLTOALLV=ON: Use MPI_Alltoallv for inter-nest communications.
 # Else, MPI_Allreduce is used.
